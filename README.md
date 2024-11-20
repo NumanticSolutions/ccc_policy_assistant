@@ -1,5 +1,3 @@
-<h1 style="color: #ed8428"> California Community Colleges Policy Assistant </h1>
-
 # $\textsf{\color{#ed8428}{California Community Colleges Policy Assistant}}$ 
 
 Welcome to the California Community Colleges Policy Assistant (CCC Policy Assistant) repo. Here we are experimenting on building Artificial Intelligence tools to help users easily improve their understanding of policy topics related to California's community colleges. This is an experimental open-source project designed to demonstrate the benefits of constructing and employing focussed datasets. Specifically, we show how
