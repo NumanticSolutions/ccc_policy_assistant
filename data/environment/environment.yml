@@ -1,0 +1,100 @@
+name: ccc_polasst
+
+channels:
+  - apple
+  - conda-forge
+
+dependencies:
+
+  - anaconda-anon-usage
+  - anaconda-catalogs
+  - anaconda-client
+  - anaconda-cloud-auth
+  - anaconda-navigator
+  - anaconda-project
+  - anaconda-toolbox
+
+  - conda
+  - conda-build
+  - conda-content-trust
+  - conda-index
+  - conda-pack
+  - conda-package-handling
+  - conda-package-streaming
+  - conda-repo-cli
+  - conda-token
+  - conda-verify
+
+  - ipykernel
+  - ipython
+  - ipython_genutils
+  - ipywidgets
+
+  - jupyter
+  - jupyter-lsp
+  - jupyter_client
+  - jupyter_console
+  - jupyter_core
+  - jupyter_events
+  - jupyter_server
+  - jupyter_server_fileid
+  - jupyter_server_ydoc
+  - jupyter_ydoc
+  - jupyterlab
+  - jupyterlab-variableinspector
+  - jupyterlab_pygments
+  - jupyterlab_server
+  - jupyterlab_widgets
+
+  - pip
+  - python
+  - python-dotenv
+
+  - pip:
+      
+      - pandas
+      - numpy
+      - pydantic
+      - jsonlines
+      - asyncio
+      - tqdm
+      
+      - google-cloud-secret-manager
+      - google-cloud-storage
+      - google.auth
+
+      - streamlit
+
+      - scikit-learn
+      - scipy
+
+      - nltk
+      - tiktoken
+
+
+      - gpt4all
+      - nomic
+
+      - langchain
+      - langchain_community
+      - langchain_chroma
+      - langchain_ollama
+      - langchain_openai
+      - langchain-google-community
+
+      - pyppeteer
+      - beautifulsoup4
+      - requests
+
+      - transformers
+      - huggingface_hub
+
+      - openai  
+
+      - asyncpraw
+      - tweepy
+
+      - sentence-transformers
+
+
+prefix: /Users/stephengodfrey/anaconda3
