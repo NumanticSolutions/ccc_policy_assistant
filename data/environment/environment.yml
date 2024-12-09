@@ -58,10 +58,12 @@ dependencies:
       - jsonlines
       - asyncio
       - tqdm
-      
+
       - google-cloud-secret-manager
       - google-cloud-storage
       - google.auth
+      - google-cloud-bigquery
+      - pandas-gbq
 
       - streamlit
 
@@ -70,7 +72,6 @@ dependencies:
 
       - nltk
       - tiktoken
-
 
       - gpt4all
       - nomic
