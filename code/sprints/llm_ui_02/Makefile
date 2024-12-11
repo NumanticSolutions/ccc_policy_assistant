@@ -1,5 +1,7 @@
 # [2412] n8
 #
+# * ollama pull phi3
+#
 
 echo :
 	streamlit run echo_bot.py
