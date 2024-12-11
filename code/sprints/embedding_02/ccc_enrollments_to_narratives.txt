@@ -1,0 +1,380 @@
+The Chaffey College had a fall 2023 student enrollment of 21095.
+The Chaffey College has a student enrollment that is larger than the average enrollment (12797).
+
+The Santa Barbara City College had a fall 2023 student enrollment of 16835.
+The Santa Barbara City College has a student enrollment that is larger than the average enrollment (12797).
+
+The Fresno City College had a fall 2023 student enrollment of 25563.
+The Fresno City College has a student enrollment that is larger than the average enrollment (12797).
+The Fresno City College has a student enrollment that is among the largest in the state.
+
+The Bakersfield College had a fall 2023 student enrollment of 31021.
+The Bakersfield College has a student enrollment that is larger than the average enrollment (12797).
+The Bakersfield College has a student enrollment that is among the largest in the state.
+
+The Fullerton College had a fall 2023 student enrollment of 18572.
+The Fullerton College has a student enrollment that is larger than the average enrollment (12797).
+
+The San Diego City College had a fall 2023 student enrollment of 13195.
+The San Diego City College has a student enrollment that is larger than the average enrollment (12797).
+
+The Citrus College had a fall 2023 student enrollment of 10281.
+The Citrus College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Santa Ana College had a fall 2023 student enrollment of 36941.
+The Santa Ana College has a student enrollment that is larger than the average enrollment (12797).
+The Santa Ana College has a student enrollment that is among the largest in the state.
+
+The Riverside City College had a fall 2023 student enrollment of 21156.
+The Riverside City College has a student enrollment that is larger than the average enrollment (12797).
+
+The Sacramento City College had a fall 2023 student enrollment of 19034.
+The Sacramento City College has a student enrollment that is larger than the average enrollment (12797).
+
+The Santa Rosa Junior College had a fall 2023 student enrollment of 22215.
+The Santa Rosa Junior College has a student enrollment that is larger than the average enrollment (12797).
+
+The Gavilan College had a fall 2023 student enrollment of 6580.
+The Gavilan College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Allan Hancock College had a fall 2023 student enrollment of 12866.
+The Allan Hancock College has a student enrollment that is larger than the average enrollment (12797).
+
+The Hartnell College had a fall 2023 student enrollment of 8557.
+The Hartnell College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Modesto Junior College had a fall 2023 student enrollment of 17444.
+The Modesto Junior College has a student enrollment that is larger than the average enrollment (12797).
+
+The San José City College had a fall 2023 student enrollment of 9032.
+The San José City College has a student enrollment that is smaller than the average enrollment (12797).
+
+The College of San Mateo had a fall 2023 student enrollment of 9204.
+The College of San Mateo has a student enrollment that is smaller than the average enrollment (12797).
+
+The Taft College had a fall 2023 student enrollment of 3975.
+The Taft College has a student enrollment that is smaller than the average enrollment (12797).
+The Taft College has a student enrollment that is among the smallest in the state.
+
+The Pasadena City College had a fall 2023 student enrollment of 26522.
+The Pasadena City College has a student enrollment that is larger than the average enrollment (12797).
+The Pasadena City College has a student enrollment that is among the largest in the state.
+
+The Lassen College had a fall 2023 student enrollment of 2028.
+The Lassen College has a student enrollment that is smaller than the average enrollment (12797).
+The Lassen College has a student enrollment that is among the smallest in the state.
+
+The Los Angeles Trade Technical College had a fall 2023 student enrollment of 13497.
+The Los Angeles Trade Technical College has a student enrollment that is larger than the average enrollment (12797).
+
+The Ventura College had a fall 2023 student enrollment of 11689.
+The Ventura College has a student enrollment that is smaller than the average enrollment (12797).
+
+The College of Marin had a fall 2023 student enrollment of 6186.
+The College of Marin has a student enrollment that is smaller than the average enrollment (12797).
+
+The College of the Sequoias had a fall 2023 student enrollment of 13978.
+The College of the Sequoias has a student enrollment that is larger than the average enrollment (12797).
+
+The Reedley College had a fall 2023 student enrollment of 8505.
+The Reedley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The San Bernardino Valley College had a fall 2023 student enrollment of 13209.
+The San Bernardino Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Compton College had a fall 2023 student enrollment of 4918.
+The Compton College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Glendale Community College had a fall 2023 student enrollment of 15885.
+The Glendale Community College has a student enrollment that is larger than the average enrollment (12797).
+
+The Long Beach City College had a fall 2023 student enrollment of 26189.
+The Long Beach City College has a student enrollment that is larger than the average enrollment (12797).
+The Long Beach City College has a student enrollment that is among the largest in the state.
+
+The Porterville College had a fall 2023 student enrollment of 5055.
+The Porterville College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Yuba College had a fall 2023 student enrollment of 5851.
+The Yuba College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Antelope Valley College had a fall 2023 student enrollment of 13093.
+The Antelope Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Los Angeles City College had a fall 2023 student enrollment of 17157.
+The Los Angeles City College has a student enrollment that is larger than the average enrollment (12797).
+
+The Santa Monica College had a fall 2023 student enrollment of 26748.
+The Santa Monica College has a student enrollment that is larger than the average enrollment (12797).
+The Santa Monica College has a student enrollment that is among the largest in the state.
+
+The West Hills College Coalinga had a fall 2023 student enrollment of 3690.
+The West Hills College Coalinga has a student enrollment that is smaller than the average enrollment (12797).
+The West Hills College Coalinga has a student enrollment that is among the smallest in the state.
+
+The MiraCosta College had a fall 2023 student enrollment of 14308.
+The MiraCosta College has a student enrollment that is larger than the average enrollment (12797).
+
+The City College of San Francisco had a fall 2023 student enrollment of 26519.
+The City College of San Francisco has a student enrollment that is larger than the average enrollment (12797).
+The City College of San Francisco has a student enrollment that is among the largest in the state.
+
+The San Joaquin Delta College had a fall 2023 student enrollment of 18226.
+The San Joaquin Delta College has a student enrollment that is larger than the average enrollment (12797).
+
+The Sierra College had a fall 2023 student enrollment of 17806.
+The Sierra College has a student enrollment that is larger than the average enrollment (12797).
+
+The Napa Valley College had a fall 2023 student enrollment of 4326.
+The Napa Valley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The East Los Angeles College had a fall 2023 student enrollment of 32225.
+The East Los Angeles College has a student enrollment that is larger than the average enrollment (12797).
+The East Los Angeles College has a student enrollment that is among the largest in the state.
+
+The Solano Community College had a fall 2023 student enrollment of 8868.
+The Solano Community College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Contra Costa College had a fall 2023 student enrollment of 6570.
+The Contra Costa College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Mt. San Antonio College had a fall 2023 student enrollment of 38269.
+The Mt. San Antonio College has a student enrollment that is larger than the average enrollment (12797).
+The Mt. San Antonio College has a student enrollment that is among the largest in the state.
+The Mt. San Antonio College has a student enrollment that is the largest in the state.
+
+The Palomar College had a fall 2023 student enrollment of 20126.
+The Palomar College has a student enrollment that is larger than the average enrollment (12797).
+
+The El Camino College had a fall 2023 student enrollment of 21971.
+The El Camino College has a student enrollment that is larger than the average enrollment (12797).
+
+The Los Angeles Pierce College had a fall 2023 student enrollment of 18081.
+The Los Angeles Pierce College has a student enrollment that is larger than the average enrollment (12797).
+
+The Monterey Peninsula College had a fall 2023 student enrollment of 7737.
+The Monterey Peninsula College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Orange Coast College had a fall 2023 student enrollment of 17646.
+The Orange Coast College has a student enrollment that is larger than the average enrollment (12797).
+
+The Palo Verde College had a fall 2023 student enrollment of 3605.
+The Palo Verde College has a student enrollment that is smaller than the average enrollment (12797).
+The Palo Verde College has a student enrollment that is among the smallest in the state.
+
+The Diablo Valley College had a fall 2023 student enrollment of 16504.
+The Diablo Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Los Angeles Harbor College had a fall 2023 student enrollment of 9442.
+The Los Angeles Harbor College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Los Angeles Valley College had a fall 2023 student enrollment of 17642.
+The Los Angeles Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Shasta College had a fall 2023 student enrollment of 8658.
+The Shasta College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Laney College had a fall 2023 student enrollment of 10265.
+The Laney College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Merritt College had a fall 2023 student enrollment of 6818.
+The Merritt College has a student enrollment that is smaller than the average enrollment (12797).
+
+The American River College had a fall 2023 student enrollment of 29787.
+The American River College has a student enrollment that is larger than the average enrollment (12797).
+The American River College has a student enrollment that is among the largest in the state.
+
+The Cerritos College had a fall 2023 student enrollment of 22948.
+The Cerritos College has a student enrollment that is larger than the average enrollment (12797).
+The Cerritos College has a student enrollment that is among the largest in the state.
+
+The College of the Siskiyous had a fall 2023 student enrollment of 1860.
+The College of the Siskiyous has a student enrollment that is smaller than the average enrollment (12797).
+The College of the Siskiyous has a student enrollment that is among the smallest in the state.
+
+The Foothill College had a fall 2023 student enrollment of 13945.
+The Foothill College has a student enrollment that is larger than the average enrollment (12797).
+
+The College of the Desert had a fall 2023 student enrollment of 12123.
+The College of the Desert has a student enrollment that is smaller than the average enrollment (12797).
+
+The Barstow Community College had a fall 2023 student enrollment of 3514.
+The Barstow Community College has a student enrollment that is smaller than the average enrollment (12797).
+The Barstow Community College has a student enrollment that is among the smallest in the state.
+
+The Cabrillo College had a fall 2023 student enrollment of 9968.
+The Cabrillo College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Rio Hondo College had a fall 2023 student enrollment of 18887.
+The Rio Hondo College has a student enrollment that is larger than the average enrollment (12797).
+
+The Chabot College had a fall 2023 student enrollment of 12519.
+The Chabot College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Grossmont College had a fall 2023 student enrollment of 13694.
+The Grossmont College has a student enrollment that is larger than the average enrollment (12797).
+
+The Southwestern College had a fall 2023 student enrollment of 19638.
+The Southwestern College has a student enrollment that is larger than the average enrollment (12797).
+
+The Victor Valley College had a fall 2023 student enrollment of 16272.
+The Victor Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Imperial Valley College had a fall 2023 student enrollment of 8815.
+The Imperial Valley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Merced College had a fall 2023 student enrollment of 12875.
+The Merced College has a student enrollment that is larger than the average enrollment (12797).
+
+The Mt. San Jacinto College had a fall 2023 student enrollment of 19040.
+The Mt. San Jacinto College has a student enrollment that is larger than the average enrollment (12797).
+
+The Cuesta College had a fall 2023 student enrollment of 11756.
+The Cuesta College has a student enrollment that is smaller than the average enrollment (12797).
+
+The San Diego Mesa College had a fall 2023 student enrollment of 19243.
+The San Diego Mesa College has a student enrollment that is larger than the average enrollment (12797).
+
+The West Valley College had a fall 2023 student enrollment of 9283.
+The West Valley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The College of the Redwoods had a fall 2023 student enrollment of 4719.
+The College of the Redwoods has a student enrollment that is smaller than the average enrollment (12797).
+
+The Las Positas College had a fall 2023 student enrollment of 7605.
+The Las Positas College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Golden West College had a fall 2023 student enrollment of 11029.
+The Golden West College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Ohlone College had a fall 2023 student enrollment of 8716.
+The Ohlone College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Copper Mountain College had a fall 2023 student enrollment of 1705.
+The Copper Mountain College has a student enrollment that is smaller than the average enrollment (12797).
+The Copper Mountain College has a student enrollment that is among the smallest in the state.
+The Copper Mountain College has a student enrollment that is the smallest in the state.
+
+The Cypress College had a fall 2023 student enrollment of 14026.
+The Cypress College has a student enrollment that is larger than the average enrollment (12797).
+
+The Butte College had a fall 2023 student enrollment of 11026.
+The Butte College has a student enrollment that is smaller than the average enrollment (12797).
+
+The De Anza College had a fall 2023 student enrollment of 17189.
+The De Anza College has a student enrollment that is larger than the average enrollment (12797).
+
+The Los Angeles Southwest College had a fall 2023 student enrollment of 6053.
+The Los Angeles Southwest College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Moorpark College had a fall 2023 student enrollment of 14147.
+The Moorpark College has a student enrollment that is larger than the average enrollment (12797).
+
+The Cañada College had a fall 2023 student enrollment of 6144.
+The Cañada College has a student enrollment that is smaller than the average enrollment (12797).
+
+The College of Alameda had a fall 2023 student enrollment of 5856.
+The College of Alameda has a student enrollment that is smaller than the average enrollment (12797).
+
+The Columbia College had a fall 2023 student enrollment of 2743.
+The Columbia College has a student enrollment that is smaller than the average enrollment (12797).
+The Columbia College has a student enrollment that is among the smallest in the state.
+
+The Feather River College had a fall 2023 student enrollment of 1767.
+The Feather River College has a student enrollment that is smaller than the average enrollment (12797).
+The Feather River College has a student enrollment that is among the smallest in the state.
+
+The Saddleback College had a fall 2023 student enrollment of 24778.
+The Saddleback College has a student enrollment that is larger than the average enrollment (12797).
+The Saddleback College has a student enrollment that is among the largest in the state.
+
+The College of the Canyons had a fall 2023 student enrollment of 19780.
+The College of the Canyons has a student enrollment that is larger than the average enrollment (12797).
+
+The San Diego Miramar College had a fall 2023 student enrollment of 13555.
+The San Diego Miramar College has a student enrollment that is larger than the average enrollment (12797).
+
+The Skyline College had a fall 2023 student enrollment of 9433.
+The Skyline College has a student enrollment that is smaller than the average enrollment (12797).
+
+The West Los Angeles College had a fall 2023 student enrollment of 9955.
+The West Los Angeles College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Cosumnes River College had a fall 2023 student enrollment of 14991.
+The Cosumnes River College has a student enrollment that is larger than the average enrollment (12797).
+
+The Crafton Hills College had a fall 2023 student enrollment of 6148.
+The Crafton Hills College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Cerro Coso Community College had a fall 2023 student enrollment of 5755.
+The Cerro Coso Community College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Mendocino College had a fall 2023 student enrollment of 4924.
+The Mendocino College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Berkeley City College had a fall 2023 student enrollment of 6664.
+The Berkeley City College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Los Medanos College had a fall 2023 student enrollment of 8358.
+The Los Medanos College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Evergreen Valley College had a fall 2023 student enrollment of 9239.
+The Evergreen Valley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Lake Tahoe Community College had a fall 2023 student enrollment of 3945.
+The Lake Tahoe Community College has a student enrollment that is smaller than the average enrollment (12797).
+The Lake Tahoe Community College has a student enrollment that is among the smallest in the state.
+
+The Los Angeles Mission College had a fall 2023 student enrollment of 11865.
+The Los Angeles Mission College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Mission College had a fall 2023 student enrollment of 7157.
+The Mission College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Oxnard College had a fall 2023 student enrollment of 7141.
+The Oxnard College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Coastline Community College had a fall 2023 student enrollment of 9783.
+The Coastline Community College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Cuyamaca College had a fall 2023 student enrollment of 8438.
+The Cuyamaca College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Irvine Valley College had a fall 2023 student enrollment of 15506.
+The Irvine Valley College has a student enrollment that is larger than the average enrollment (12797).
+
+The Santiago Canyon College had a fall 2023 student enrollment of 18040.
+The Santiago Canyon College has a student enrollment that is larger than the average enrollment (12797).
+
+The Norco College had a fall 2023 student enrollment of 11003.
+The Norco College has a student enrollment that is smaller than the average enrollment (12797).
+
+The West Hills College Lemoore had a fall 2023 student enrollment of 4245.
+The West Hills College Lemoore has a student enrollment that is smaller than the average enrollment (12797).
+
+The Folsom Lake College had a fall 2023 student enrollment of 10223.
+The Folsom Lake College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Clovis Community College had a fall 2023 student enrollment of 9106.
+The Clovis Community College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Woodland Community College had a fall 2023 student enrollment of 3844.
+The Woodland Community College has a student enrollment that is smaller than the average enrollment (12797).
+The Woodland Community College has a student enrollment that is among the smallest in the state.
+
+The Moreno Valley College had a fall 2023 student enrollment of 10115.
+The Moreno Valley College has a student enrollment that is smaller than the average enrollment (12797).
+
+The Calbright College had a fall 2023 student enrollment of 2279.
+The Calbright College has a student enrollment that is smaller than the average enrollment (12797).
+The Calbright College has a student enrollment that is among the smallest in the state.
+
+The Madera Community College had a fall 2023 student enrollment of 5951.
+The Madera Community College has a student enrollment that is smaller than the average enrollment (12797).
+
+The average enrollment at a California community college is 12797.
+The median enrollment at a California community college is 11027.
+The smallest enrollment at a California community college is 1705.
+The largest enrollment at a California community college is 38269.
+The combined enrollment at all California community colleges is 1484491.
+A table of California community colleges and their enrollments can be found [here](https://en.wikipedia.org/wiki/List_of_California_Community_Colleges).
