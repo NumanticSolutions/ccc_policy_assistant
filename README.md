@@ -12,5 +12,5 @@ We use Anaconda to create a virtual environment. You can find the `environment.y
 ```
 conda env create --platform osx-arm64 -f environment.yml
 ```
-You'll need to select this interrupter in your development environment.
+You'll need to select this interrupter in your development environment. 
 
