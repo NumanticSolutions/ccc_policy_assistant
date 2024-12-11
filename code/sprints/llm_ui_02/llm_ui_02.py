@@ -30,8 +30,9 @@ st.text("Note : make sure the Ollama client is running while using this applicat
 
 st.divider()
 
-
-llm = OllamaLLM(model="phi3")
+###### Modified code from Nathan's
+# llm = OllamaLLM(model="phi3")
+llm = OllamaLLM(model="phi3.5")
 
 template = """
 Question: {question}
