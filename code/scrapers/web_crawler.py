@@ -41,7 +41,7 @@ class webCrawler():
         self.save_threshold = 100
 
         # Maximum webpages
-        self.max_crawls = 100
+        self.max_crawls = 1000
 
         # Counts
         self.crawl_cnt = 0  # Number of sites crawled

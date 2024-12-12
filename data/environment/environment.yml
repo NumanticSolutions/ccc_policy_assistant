@@ -60,7 +60,7 @@ dependencies:
       - asyncpraw
       - tweepy
 
-      - sentence-transformers
+#      - sentence-transformers
 
 
 prefix: /Users/stephengodfrey/anaconda3
