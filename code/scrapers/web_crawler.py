@@ -52,6 +52,9 @@ class webCrawler():
         self.results_path = ("/Users/stephengodfrey/OneDrive - numanticsolutions.com/"
                              "Engagements/Projects/ccc_policy_assistant/data/crawls")
 
+        # Output filename base - if this is blank, the crawler will assign a name
+        self.output_filename_base = ""
+
         # Seed url
         self.seed_url = seed_url
 
@@ -200,8 +203,12 @@ class webCrawler():
         self.saved_batch_cnt += 1
 
         # results filename
-        res_filename = "{}_{}_{}.csv".format(seedhost, crwl_dt,
-                                             self.saved_batch_cnt)
+        if self.output_filename_base == "":
+            res_filename = "{}_{}_{}.csv".format(seedhost, crwl_dt,
+                                                 self.saved_batch_cnt)
+        else:
+            res_filename = "{}_{}_{}.csv".format(self.output_filename_base,
+                                                 crwl_dt, self.saved_batch_cnt)
 
         # Check if any results to be saved
         if len(all_sites_results) > 0:
