@@ -1,0 +1,12 @@
+
+altair
+pandas
+
+streamlit
+
+langchain
+langchain_community
+langchain_chroma
+langchain_ollama
+langchain_openai
+langchain-google-community
