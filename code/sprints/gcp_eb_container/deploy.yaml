@@ -30,14 +30,14 @@ spec:
         - name: CHROMA_SERVER_AUTHN_PROVIDER
           value: chromadb.auth.token_authn.TokenAuthenticationServerProvider
         - name: PERSIST_DIRECTORY
-          value: /ccc_pol_asst/chroma
+          value: /db_path
         resources:
           limits:
             cpu: 1000m
             memory: 4Gi
         volumeMounts:
         - name: gcs-1
-          mountPath: /ccc_pol_asst/chroma
+          mountPath: /db_path
         startupProbe:
           timeoutSeconds: 240
           periodSeconds: 240
@@ -50,7 +50,7 @@ spec:
           driver: gcsfuse.run.googleapis.com
           readOnly: false
           volumeAttributes:
-            bucketName: ccc_pol_asst
+            bucketName: ccc-chromadb
   traffic:
   - percent: 100
     latestRevision: true

@@ -10,13 +10,13 @@ import streamlit as st
 import numpy as np
 
 import json
-import sys
+import sys, os
 
-sys.path.append('../../embedding')
-from query_embeddings import QueryEmbeddings
+# sys.path.append('../../embedding')
+from query_embeddings_2 import QueryEmbeddings
 
-sys.path.insert(0, "../../utils")
-import gcp_tools as gct
+# sys.path.insert(0, "../../utils")
+# import gcp_tools as gct
 
 st.title("CCC Bot : Retrieval")
 
@@ -36,8 +36,11 @@ class BotCCCGlobals:
                             'Be as succinct as possible when answering. ')
         self.model = "phi3.5"
         self.transcript_name = "ccc_bot-retrieval_transcript"
-        self.db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
+        # self.db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
         # self.collection_name = 'docs'
+        self.db_path = "https://chroma-embeds-1062597788108.us-central1.run.app"
+        # self.db_path = ("/Users/stephengodfrey/OneDrive - numanticsolutions.com"
+        #                 "/Engagements/Projects/ccc_policy_assistant/data/embeddings")
         self.collection_name = "crawl_docs1"
 
 bot = BotCCCGlobals()

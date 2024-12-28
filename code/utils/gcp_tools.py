@@ -67,7 +67,14 @@ def upload_directory_to_gcs(local_directory, gcs_bucket_name, gcs_directory):
         for file_name in files:
             local_file_path = os.path.join(root, file_name)
             relative_path = os.path.relpath(local_file_path, local_directory)
-            blob = bucket.blob(os.path.join(gcs_directory, relative_path))
+
+            # Check if files should be stored in subdirectory of directly in bucket
+            if gcs_directory == "":
+                blob = bucket.blob(os.path.join(relative_path))
+            else:
+                blob = bucket.blob(os.path.join(gcs_directory, relative_path))
+
+            # Upload
             blob.upload_from_filename(local_file_path)
             print(f"Uploaded {local_file_path} to gs://{gcs_bucket_name}/{gcs_directory}{relative_path}")
 

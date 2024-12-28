@@ -59,7 +59,7 @@ class EmbedDocuments:
         # Text column
         self.text_col = "ptag_text"
         # Folder on GCS
-        self.gcs_folder = "chroma"
+        self.gcs_folder = ""
 
         # Update any keyword args
         self.__dict__.update(kwargs)
