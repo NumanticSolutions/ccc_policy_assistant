@@ -81,26 +81,4 @@ class QueryEmbeddings:
         return documents, metadatas
 
 
-# # db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
-# db_path = ("/Users/stephengodfrey/OneDrive - numanticsolutions.com"
-#                    "/Engagements/Projects/ccc_policy_assistant/data/embeddings")
-# # collection_name = 'docs'
-# collection_name = "crawl_docs1"
-#
-# qe = QueryEmbeddings(db_path, collection_name)
-#
-# prompt = "what college is designated a Center of Excellence in bioprocessing?"
-# # prompt = "what colleges have surf teams?"
-# # prompt = "Does MiraCosta College have a surf team?"
-#
-# print("prompt :")
-# print(prompt + "\n")
-#
-# documents, metadatas = qe.query_collection(prompt)
-#
-# print("query results :")
-# for i, doc in enumerate(documents):
-#     print(str(i) + "\n" + doc)
-#     print(metadatas[i]+"\n")
-
 

@@ -18,7 +18,7 @@ from query_embeddings_2 import QueryEmbeddings
 # sys.path.insert(0, "../../utils")
 # import gcp_tools as gct
 
-st.title("CCC Bot : Retrieval")
+
 
 
 class BotCCCGlobals:
@@ -48,7 +48,33 @@ bot = BotCCCGlobals()
 qe = QueryEmbeddings(bot.db_path, bot.collection_name)
 
 
+### Set up header
+st.title("California Community Colleges Policy Assistant: Retrieval")
+bot_summary = ("This an experimental chatbot employing Artificial Intelligence tools "
+               "to help users easily improve their understanding of policy topics related "
+               "to California's community colleges.  Its primary purpose is to demonstrate "
+               "how policy advocacy can be supported through the use of AI technology. ")
+
+invite = ("If you want to learn more or have thoughts about the application of this or similar "
+               "tools or the underlying technology, please reach out to Steve or Nathan at "
+               "info@numanticsolutions.com")
+
+st.text(bot_summary)
+st.text(invite)
+st.divider()
+st.text("""Example question : What are the responsibilities of the board members of a California community college?""")
+# st.text("Note : make sure the Ollama client is running while using this application.")
+
+st.divider()
+
 with st.sidebar:
+
+    # Add Company name
+    st.title(":orange[Numantic Solutions]")
+
+    # Add logo
+    st.image("Numantic Solutions_Logomark_orange.png", width=200)
+
     st.title("Retrieval")
     request_succinct = st.checkbox("Request succinct")
     st.text('The Request Succinct option appends this text to the prompt : "' +
@@ -66,11 +92,9 @@ with st.sidebar:
             json.dump(messages, file)
 
 
-st.text("""Example question : What are the responsibilities of the 
-        board members of a California community college?""")
-st.text("Note : make sure the Ollama client is running while using this application.")
 
-st.divider()
+
+
 
 # Point Ollama to GCP container
 os.environ["OLLAMA_HOST"] = "https://ccc-polasst-1062597788108.us-central1.run.app"

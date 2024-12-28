@@ -1,5 +1,6 @@
 # [2412]
 #
+import os
 
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama import OllamaLLM
@@ -37,7 +38,6 @@ st.text("Example question : What is the California community college with the la
 st.text("Note : make sure the Ollama client is running while using this application.")
 
 st.divider()
-
 
 llm = OllamaLLM(model="phi3.5")
 

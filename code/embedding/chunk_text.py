@@ -49,6 +49,7 @@ class ChunkText:
         Yields:
             chunks (list strs)  : The chunked text as a list of strings.
             meta (list strs)    : The corresponding metadata for each chunk, ie source urls
+
         """
 
         chunks, metas = [], []
