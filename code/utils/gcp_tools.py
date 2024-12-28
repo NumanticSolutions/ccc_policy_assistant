@@ -82,6 +82,10 @@ def download_directory_from_gcs(gcs_directory, local_directory, bucket_name):
 
     :return:
     '''
+
+    # Initialize GCS client
+    storage_client = storage.Client()
+
     bucket = storage_client.bucket(bucket_name)
     blobs = bucket.list_blobs(prefix=gcs_directory)
 

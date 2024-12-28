@@ -1,7 +1,6 @@
 # [2412]
 #
-# * A retrieval-centric interface for CCC-PA
-#
+import os
 
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama import OllamaLLM
@@ -10,45 +9,18 @@ import streamlit as st
 import numpy as np
 
 import json
-import sys
 
-sys.path.append('../../embedding')
-from query_embeddings import QueryEmbeddings
+st.title("CCC Bot : 2412")
 
-sys.path.insert(0, "../../utils")
-import gcp_tools as gct
-
-st.title("CCC Bot : Retrieval")
-
-
-class BotCCCGlobals:
-
-    """ BotCCCGlobals class holds globals for a chatbot based on a
-    pre-trained model (phi3) and document retrieval from a vector
-    database (ChromaDB). It includes a range of defaults, including
-    an (optional) succinctness constraint, the default question, the
-    file name for any saved transcripts, and the path & collection
-    name for the vector database. """
-
-    def __init__(self):
-        self.default_question = "What shall we discuss?"
-        self.be_succinct = ('Please provide only a one or two word answer' +
-                            'Be as succinct as possible when answering. ')
-        self.model = "phi3.5"
-        self.transcript_name = "ccc_bot-retrieval_transcript"
-        self.db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
-        self.collection_name = 'docs'
-
-bot = BotCCCGlobals()
-
-qe = QueryEmbeddings(bot.db_path, bot.collection_name)
+succinct_txt = ("Please provide only a one or two word answer. " +
+                "Be as succinct as possible when answering. ")
+initial_question = "What shall we discuss?"
 
 
 with st.sidebar:
-    st.title("Retrieval")
     request_succinct = st.checkbox("Request succinct")
     st.text('The Request Succinct option appends this text to the prompt : "' +
-             bot.be_succinct + '"')
+             succinct_txt + '"')
     if st.button("Save Transcript"):
         print("save transcript")
         messages = []
@@ -58,19 +30,17 @@ with st.sidebar:
             message["succinct"] = st.session_state.succinct_hist[j]
             print(message)
             messages.append(message)
-        with open(bot.transcript_name + '.json', 'w') as file:
+        with open('ccc_bot-transcript.json', 'w') as file:
             json.dump(messages, file)
 
 
-st.text("""Example question : What are the responsibilities of the 
-        board members of a California community college?""")
+st.text("Example question : What is the California community college with the largest student enrollment?")
 st.text("Note : make sure the Ollama client is running while using this application.")
 
 st.divider()
 
-# Point Ollama to GCP container
 os.environ["OLLAMA_HOST"] = "https://ccc-polasst-1062597788108.us-central1.run.app"
-llm = OllamaLLM(model=bot.model)
+llm = OllamaLLM(model="phi3.5")
 
 template = """
 Question: {question}
@@ -90,8 +60,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# if prompt := st.chat_input(initial_question):
-if prompt := st.chat_input(bot.default_question):
+if prompt := st.chat_input(initial_question):
 
     st.chat_message("user").markdown(prompt)
 
@@ -99,23 +68,21 @@ if prompt := st.chat_input(bot.default_question):
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        documents, metadatas = qe.query_collection(prompt)
-
         if request_succinct:
-            prompt += " " + bot.be_succinct
+            prompt += " " + succinct_txt
             print(prompt)
             st.session_state.succinct_hist.append("True")
         else:
-            print(prompt)
             st.session_state.succinct_hist.append("False")
         result = chain.invoke(prompt)
-
-        for i, doc in enumerate(documents):
-            result += "\n\n --- \n\n"
-            result += documents[i]
-            result += metadatas[i]
 
         st.markdown(result)
 
     st.session_state.messages.append({"role": "assistant", "content": result})
 
+
+# [\] add succinct setting to transcript
+# [x] json formatted transcript
+# [ ] data collection on impact of succinct option (word counts with and without)
+# [ ] other options for the sidebar / chat session
+#
