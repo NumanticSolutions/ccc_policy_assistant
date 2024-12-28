@@ -1,0 +1,55 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ccc-bot
+  namespace: '1062597788108'
+  selfLink: /apis/serving.knative.dev/v1/namespaces/1062597788108/services/ccc-bot
+  uid: 502bd958-3dd7-4089-9a71-ce86186ea280
+  resourceVersion: AAYqSBS7G1Q
+  generation: 1
+  creationTimestamp: '2024-12-27T22:34:37.925237Z'
+  labels:
+    cloud.googleapis.com/location: us-central1
+  annotations:
+    run.googleapis.com/client-name: gcloud
+    run.googleapis.com/client-version: 503.0.0
+    serving.knative.dev/creator: stephen.godfrey@numanticsolutions.com
+    serving.knative.dev/lastModifier: stephen.godfrey@numanticsolutions.com
+    run.googleapis.com/operation-id: bad810b1-a15d-430d-ab86-783d9abbeac3
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+    run.googleapis.com/urls: >-
+      ["https://ccc-bot-1062597788108.us-central1.run.app","https://ccc-bot-s2zdg6dpua-uc.a.run.app"]
+spec:
+  template:
+    metadata:
+      labels:
+        client.knative.dev/nonce: pujgxazfsd
+        run.googleapis.com/startupProbeType: Default
+      annotations:
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 503.0.0
+        autoscaling.knative.dev/maxScale: '100'
+        run.googleapis.com/startup-cpu-boost: 'true'
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      serviceAccountName: 1062597788108-compute@developer.gserviceaccount.com
+      containers:
+      - image: gcr.io/eternal-bongo-435614-b9/streamlit-app
+        ports:
+        - name: http1
+          containerPort: 8080
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 1000m
+        startupProbe:
+          timeoutSeconds: 240
+          periodSeconds: 240
+          failureThreshold: 1
+          tcpSocket:
+            port: 8080
+  traffic:
+  - percent: 100
+    latestRevision: true
