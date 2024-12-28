@@ -37,7 +37,8 @@ class BotCCCGlobals:
         self.model = "phi3.5"
         self.transcript_name = "ccc_bot-retrieval_transcript"
         self.db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
-        self.collection_name = 'docs'
+        # self.collection_name = 'docs'
+        self.collection_name = "crawl_docs1"
 
 bot = BotCCCGlobals()
 
