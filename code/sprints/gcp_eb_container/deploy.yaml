@@ -5,7 +5,7 @@ metadata:
   labels:
     cloud.googleapis.com/location: us-central1
   annotations:
-    run.googleapis.com/launch-stage: BETA
+    run.googleapis.com/launch-stage: ALPHA
     run.googleapis.com/ingress: all
     run.googleapis.com/maxScale: '1'
     run.googleapis.com/minScale: '0'
