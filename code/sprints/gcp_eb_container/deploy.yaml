@@ -37,7 +37,7 @@ spec:
             memory: 4Gi
         volumeMounts:
         - name: gcs-1
-          mountPath: /db_path
+          mountPath: /ccc_pol_asst/chroma
         startupProbe:
           timeoutSeconds: 240
           periodSeconds: 240
