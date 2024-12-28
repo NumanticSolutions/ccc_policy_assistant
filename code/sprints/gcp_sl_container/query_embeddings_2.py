@@ -1,13 +1,12 @@
 # [2412]
 #
-
+import os
 import ollama
 import chromadb
 
 from chromadb.config import Settings
 
 
-print("query embeddings")
 
 class QueryEmbeddings:
 
@@ -23,7 +22,8 @@ class QueryEmbeddings:
     of documents and metadatas, both as strings.
 
     ():
-        full_path (str)       : Full path specifying where the database is to be created.
+        db_path (str)       : Full path specifying where the location of the embeddings database. If
+                                https is found in the string, it is assumed that the database is on GCS.
         collection_name (str) : Name of the collection to be created in the database.
 
     query_collection():
@@ -35,15 +35,35 @@ class QueryEmbeddings:
     """
 
     def __init__(self, path_db, collection_name):
+
+        # Point to GCP service
+        os.environ["OLLAMA_HOST"] = "https://ccc-polasst-1062597788108.us-central1.run.app"
+
         self.path_db = path_db
         self.collection_name = collection_name
 
         ### Changes to move embeddings to GCP
-        self.client = chromadb.PersistentClient(path=self.path_db)
+        ### Check if local or in the cloud
+        if self.path_db.find("https") >= 0:
 
+            # Create a Chroma client with the service URL and API token
+            self.client = chromadb.HttpClient(host=self.path_db,
+                                              port=443,
+                                              ssl=True,
+                                              settings=Settings(
+                                                  chroma_client_auth_provider="chromadb.auth.token_authn.TokenAuthClientProvider",
+                                                  chroma_client_auth_credentials="abcdefghijklmnopqrstuvwxyz",
+                                                  anonymized_telemetry=False))
+        else:
+
+            # Embeddings database stored locally
+            self.client = chromadb.PersistentClient(path=self.path_db)
+
+        # Set up collection
         self.collection = self.client.get_collection(name=collection_name)
 
-        self.documnts = self.collection.get()
+        # Get documents
+        self.documents = self.collection.get()
 
     def query_collection(self, prompt_str, 
                          embed_model="mxbai-embed-large", n_neighbors=3, meta_key="url"):
@@ -64,24 +84,5 @@ class QueryEmbeddings:
 
         return documents, metadatas
 
-
-db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
-collection_name = 'docs'
-
-qe = QueryEmbeddings(db_path, collection_name)
-
-prompt = "what college is designated a Center of Excellence in bioprocessing?"
-# prompt = "what colleges have surf teams?"
-# prompt = "Does MiraCosta College have a surf team?"
-
-print("prompt :")
-print(prompt + "\n")
-
-documents, metadatas = qe.query_collection(prompt)
-
-print("query results :")
-for i, doc in enumerate(documents):
-    print(str(i) + "\n" + doc)
-    print(metadatas[i]+"\n")
 
 
