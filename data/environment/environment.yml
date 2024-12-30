@@ -10,7 +10,7 @@ dependencies:
 
   - jupyterlab
 
-  - python
+  - python 3.10
   - pip
 
   - pip:
@@ -46,6 +46,8 @@ dependencies:
       - langchain_ollama
       - langchain_openai
       - langchain-google-community
+      - langchain-google-vertexai
+      - vertexai
 
       - pyppeteer
       - beautifulsoup4

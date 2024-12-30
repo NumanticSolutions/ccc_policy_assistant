@@ -1,4 +1,5 @@
 import os
+import json
 
 # Environment variables for API credential storage
 # import dotenv
@@ -19,15 +20,16 @@ class ApiAuthentication:
 
     '''
 
-    dotenv_path = "../../../data/environment"
-    cred_source = "local"
-
     def __init__(self,
                  **kwargs):
         '''
         Initialize class
 
         '''
+
+        self.dotenv_path = "../../../data/environment"
+        self.cred_source = "dotenv"
+        self.service_acct_file = "eternal-bongo-435614-b9-bf6a5e630e44.json"
 
         # Update any key word args
         self.__dict__.update(kwargs)
@@ -41,8 +43,17 @@ class ApiAuthentication:
 
         '''
 
+        self.apis_configs = {}
+
         # Get the dotenv configuration file
-        if self.cred_source == "local":
+        if self.cred_source == "dotenv":
             creds_file = ".env"
             self.apis_configs = dotenv_values(os.path.join(self.dotenv_path,
-                                                           ".env"))
+                                                           creds_file))
+
+        elif self.cred_source == "service_acct":
+            self.apis_configs["service_acct"] = json.load(open(os.path.join(self.creds_path,
+                                                self.creds_file)))
+
+
+
