@@ -278,23 +278,41 @@ with st.sidebar:
 
 ########## Handle conversations in Streamlit
 
+#############################################################
+st.text("starting session checks")
+
 # Build session components if needed
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+#############################################################
+st.text("chat history session check complete")
+
 if "vectorstore" not in st.session_state:
     st.session_state.vectorstore = setup_vectorstore()
 
-if "conversationsal_chain" not in st.session_state:
+#############################################################
+st.text("vectorstore session check complete")
+
+if "conversational_chain" not in st.session_state:
     st.session_state.conversational_chain = chat_chain(st.session_state.vectorstore)
+
+#############################################################
+st.text("conversational chain session check complete")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+#############################################################
+st.text("messages session check complete")
 
 # displays the chat history when app is rerun
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+
+#############################################################
+st.text("populating chat input")
 
 # Input box for user's query
 user_input = st.chat_input("Your message")
