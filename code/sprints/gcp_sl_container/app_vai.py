@@ -3,22 +3,26 @@
 # * A retrieval-centric interface for CCC-PA
 #
 
-from langchain_core.prompts import PromptTemplate
-from langchain_ollama import OllamaLLM
 
 import streamlit as st
-import numpy as np
-
 import json
 import sys, os
+import datetime
 
-# sys.path.append('../../embedding')
-from query_embeddings_2 import QueryEmbeddings
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain.document_loaders import TextLoader, UnstructuredPDFLoader
+from langchain.prompts import PromptTemplate
+from langchain.text_splitter import CharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_google_vertexai import VertexAI, VertexAIEmbeddings
+import vertexai
+import chromadb
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationalRetrievalChain
 
-# sys.path.insert(0, "../../utils")
-# import gcp_tools as gct
-
-
+sys.path.insert(0, "../../utils")
+import gcp_tools as gct
 
 
 class BotCCCGlobals:
@@ -31,23 +35,139 @@ class BotCCCGlobals:
     name for the vector database. """
 
     def __init__(self):
+
+        self.transcript_name_base = "cccbot_transcript"
+        self.transcript_path = "./local_transcripts/"
+        self.transcript_gcs_bucket = "cccbot-transcripts"
+        self.transcript_gcs_directory = ""
+        # self.collection_name = "crawl_docs1"
+
+        self.gcp_project_id = "eternal-bongo-435614-b9"
+        self.gcp_location = "us-central1"
+        self.gcs_embeddings_bucket_name = "ccc-chromadb-vai"
+        self.gcs_embeddings_directory = ""
+        self.embedding_model = "textembedding-gecko@003"
+        self.embedding_num_batch = 5
+        self.embeddings_local_path = "./local_chromadb/"
+
+        self.llm_model = "gemini-1.5-pro"
+        self.llm_model_max_output_tokens = 2048
+        self.llm_model_temperature = 0.2
+        self.llm_model_top_p = 0.8
+        self.llm_model_top_k = 40
+        self.llm_model_verbose = True
+
+        self.retriever_search_type = "similarity"
+        self.retriever_search_kwargs = {"k": 3}
+
         self.default_question = "What shall we discuss?"
-        self.be_succinct = ('Please provide only a one or two word answer' +
-                            'Be as succinct as possible when answering. ')
-        self.model = "phi3.5"
-        self.transcript_name = "ccc_bot-retrieval_transcript"
-        # self.db_path = '/Users/numantic/projects/ccc/embedding_wikipedia/db'
-        # self.collection_name = 'docs'
-        self.db_path = "https://chroma-embeds-1062597788108.us-central1.run.app"
-        # self.db_path = ("/Users/stephengodfrey/OneDrive - numanticsolutions.com"
-        #                 "/Engagements/Projects/ccc_policy_assistant/data/embeddings")
-        self.collection_name = "crawl_docs1"
+        # self.be_succinct = ('Please provide only a one or two word answer' +
+        #                     'Be as succinct as possible when answering. ')
+        # self.prompt_template = """
+        #                         You are a California Community College AI assistant.
+        #                         You're tasked to answer the question given below,
+        #                         but only based on the context provided.
+        #                         context: {context}
+        #                         question: {input}
+        #                         If you cannot find an answer ask the user to rephrase the question.
+        #                         answer:
+        #                        """
 
-bot = BotCCCGlobals()
+        self.prompt_template = """
+                                You are a California Community College AI assistant.
+                                Use the following pieces of context to answer the question at the end. 
+                                If you don't know the answer, just say that you don't know, 
+                                don't try to make up an answer.
 
-qe = QueryEmbeddings(bot.db_path, bot.collection_name)
+                               """
+        self.chat_hist_memory_key = "chat_history"
+        self.chat_hist_return_messages = True
+        self.chat_hist_output_key = "answer"
+
+        self.conv_chain_chain_type="stuff"
+        self.conv_chain_chain_type_verbose=True
+        self.conv_chain_chain_type_return_source_documents=True
 
 
+
+########## Set up Chatbot
+
+### Step 1: Establish parameters
+bot_params = BotCCCGlobals()
+
+### Step 2: Initialize Vertex AI
+vertexai.init(project=bot_params.gcp_project_id,
+              location=bot_params.gcp_location)
+
+### Step 3: Copy Chromadb from GCS to a local directory
+
+def setup_vectorstore():
+    '''
+    Function to set up vector store. This returns a vector store that
+    can be set in the Streamlit session eliminating the automatic
+    refresh that would happen with each new question
+
+    '''
+
+    # Download files from GCP
+    gct.download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
+                                    gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
+                                    gcs_directory="",
+                                    local_directory=bot_params.embeddings_local_path)
+
+    # Load embeddings and persisted data
+    embeddings = VertexAIEmbeddings(model_name=bot_params.embedding_model)
+
+    # Load Chroma data from local persisted directory
+    db = Chroma(persist_directory=bot_params.embeddings_local_path,
+                embedding_function=embeddings)
+
+    return db
+
+def chat_chain(vectorstore):
+    '''
+    Function to set up chat_chain. This returns a conversational chain that
+    can be set in the Streamlit session eliminating the automatic
+    refresh that would happen with each new question.
+
+    From searching, it seems that ConversationalRetrievalChain.from_llm might be
+    deprecated so we may need to update the functionality used here. Also, it's not obvious
+    how to provide a custom prompt.
+
+    '''
+
+    llm = VertexAI(model=bot_params.llm_model,
+                   max_output_tokens=bot_params.llm_model_max_output_tokens,
+                   temperature=bot_params.llm_model_temperature,
+                   top_p=bot_params.llm_model_top_p,
+                   top_k=bot_params.llm_model_top_k,
+                   verbose=bot_params.llm_model_verbose,
+                   )
+
+    retriever = vectorstore.as_retriever()
+    memory = ConversationBufferMemory(
+        llm=llm,
+        output_key=bot_params.chat_hist_output_key,
+        memory_key=bot_params.chat_hist_memory_key,
+        return_messages=bot_params.chat_hist_return_messages
+    )
+
+    # Not sure if this is used
+    prompt = PromptTemplate.from_template(bot_params.prompt_template)
+
+    chain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=retriever,
+        chain_type=bot_params.conv_chain_chain_type,
+        memory=memory,
+        verbose=bot_params.conv_chain_chain_type_verbose,
+        return_source_documents=bot_params.conv_chain_chain_type_return_source_documents
+    )
+
+    return chain
+
+
+########## Set up Streamlit
 ### Set up header
 st.title("California Community Colleges Policy Assistant: Retrieval")
 bot_summary = ("This an experimental chatbot employing Artificial Intelligence tools "
@@ -63,7 +183,6 @@ st.text(bot_summary)
 st.text(invite)
 st.divider()
 st.text("""Example question : What are the responsibilities of the board members of a California community college?""")
-# st.text("Note : make sure the Ollama client is running while using this application.")
 
 st.divider()
 
@@ -75,75 +194,76 @@ with st.sidebar:
     # Add logo
     st.image("Numantic Solutions_Logomark_orange.png", width=200)
 
-    st.title("Retrieval")
-    request_succinct = st.checkbox("Request succinct")
-    st.text('The Request Succinct option appends this text to the prompt : "' +
-             bot.be_succinct + '"')
+    st.title("Notes")
+    sidebar_msg = ("This is a chatbot that is experimental and still in development. "
+                   "Please reach out with feedback, suggestions and comments. Thank you")
+    st.text(sidebar_msg)
+
     if st.button("Save Transcript"):
         print("save transcript")
         messages = []
         for i in range(len(st.session_state.messages)):
-            message = st.session_state.messages[i].copy()
-            j = int(i/2)
-            message["succinct"] = st.session_state.succinct_hist[j]
-            print(message)
-            messages.append(message)
-        with open(bot.transcript_name + '.json', 'w') as file:
+            messages.append(st.session_state.messages[i].copy())
+
+        # Construct a filename
+        now = datetime.datetime.now()
+        tfilename = "{}_{}.json".format(bot_params.transcript_name_base,
+                                        now.strftime("%Y%m%d_%H%M%S"))
+
+        # Save locally
+        with open(os.path.join(bot_params.transcript_path, tfilename), "w") as file:
             json.dump(messages, file)
 
+        # Copy to GCS
+        gct.upload_directory_to_gcs(local_directory=bot_params.transcript_path,
+                                    gcs_project_id=bot_params.gcp_project_id,
+                                    gcs_bucket_name=bot_params.transcript_gcs_bucket,
+                                    gcs_directory=bot_params.transcript_gcs_directory)
 
+########## Handle conversations in Streamlit
 
+# Build session components if needed
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
+if "vectorstore" not in st.session_state:
+    st.session_state.vectorstore = setup_vectorstore()
 
-
-# Point Ollama to GCP container
-os.environ["OLLAMA_HOST"] = "https://ccc-polasst-1062597788108.us-central1.run.app"
-llm = OllamaLLM(model=bot.model)
-
-template = """
-Question: {question}
-Answer: 
-"""
-prompt = PromptTemplate(template=template, input_variables=["question"])
-
-chain = prompt | llm
-
+if "conversationsal_chain" not in st.session_state:
+    st.session_state.conversational_chain = chat_chain(st.session_state.vectorstore)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.succinct_hist = []
 
 # displays the chat history when app is rerun
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# if prompt := st.chat_input(initial_question):
-if prompt := st.chat_input(bot.default_question):
+# Input box for user's query
+user_input = st.chat_input("Your message")
 
-    st.chat_message("user").markdown(prompt)
+if user_input:
+    # Display user's message
+    with st.chat_message("user"):
+        st.markdown(user_input)
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    # Store user's query in the chat history
+    st.session_state.messages.append({"role": "user", "content": user_input})
 
-    # Display assistant response in chat message container
+    # Get the AI assistant's response
+    response = st.session_state.conversational_chain({"question": user_input})
+    assistant_response = response["answer"]
+
+    # Store AI's response in the chat history
+    st.session_state.messages.append({"role": "assistant", "content": assistant_response})
+
+    # Display assistant's message
     with st.chat_message("assistant"):
-        documents, metadatas = qe.query_collection(prompt)
+        st.markdown(assistant_response)
 
-        if request_succinct:
-            prompt += " " + bot.be_succinct
-            print(prompt)
-            st.session_state.succinct_hist.append("True")
-        else:
-            print(prompt)
-            st.session_state.succinct_hist.append("False")
-        result = chain.invoke(prompt)
-
-        for i, doc in enumerate(documents):
-            result += "\n\n --- \n\n"
-            result += documents[i]
-            result += metadatas[i]
-
-        st.markdown(result)
-
-    st.session_state.messages.append({"role": "assistant", "content": result})
-
+# Option to clear chat history
+# if st.button("Clear Chat"):
+#     st.session_state.messages = []
+#     memory.clear()
+#     st.experimental_rerun()

@@ -65,10 +65,7 @@ def upload_directory_to_gcs(local_directory, gcs_project_id,
 
     # Initialize GCS client
     storage_client = storage.Client(project=gcs_project_id)
-
     bucket = storage_client.bucket(bucket_name=gcs_bucket_name)
-
-    print(local_directory)
 
     for root, _, files in os.walk(local_directory):
         for file_name in files:
@@ -86,7 +83,8 @@ def upload_directory_to_gcs(local_directory, gcs_project_id,
             print(f"Uploaded {local_file_path} to gs://{gcs_bucket_name}/{gcs_directory}{relative_path}")
 
 
-def download_directory_from_gcs(gcs_directory, local_directory, bucket_name):
+def download_directory_from_gcs(gcs_project_id, gcs_bucket_name,
+                                gcs_directory, local_directory):
     '''
     Function to download a folder in Google Cloud Storage bucket to a local directory
 
@@ -98,9 +96,9 @@ def download_directory_from_gcs(gcs_directory, local_directory, bucket_name):
     '''
 
     # Initialize GCS client
-    storage_client = storage.Client()
+    storage_client = storage.Client(project=gcs_project_id)
+    bucket = storage_client.bucket(bucket_name=gcs_bucket_name)
 
-    bucket = storage_client.bucket(bucket_name)
     blobs = bucket.list_blobs(prefix=gcs_directory)
 
     for blob in blobs:
