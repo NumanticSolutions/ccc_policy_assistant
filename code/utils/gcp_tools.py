@@ -51,7 +51,8 @@ def table_exists(dataset_id, table_id):
         else:
             raise e
 
-def upload_directory_to_gcs(local_directory, gcs_bucket_name, gcs_directory):
+def upload_directory_to_gcs(local_directory, gcs_project_id,
+                            gcs_bucket_name, gcs_directory):
     '''
     Function to upload a directory to Google Cloud Storage
 
@@ -63,9 +64,11 @@ def upload_directory_to_gcs(local_directory, gcs_bucket_name, gcs_directory):
     '''
 
     # Initialize GCS client
-    storage_client = storage.Client()
+    storage_client = storage.Client(project=gcs_project_id)
 
-    bucket = storage_client.bucket(gcs_bucket_name)
+    bucket = storage_client.bucket(bucket_name=gcs_bucket_name)
+
+    print(local_directory)
 
     for root, _, files in os.walk(local_directory):
         for file_name in files:

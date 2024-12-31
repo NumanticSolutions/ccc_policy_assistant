@@ -83,6 +83,9 @@ class EmbedDocuments:
         # Update any keyword args
         self.__dict__.update(kwargs)
 
+        # Initialize VertexAI
+        vertexai.init(project=self.project_id, location=self.location)
+
 
     def get_input_filenames(self):
         '''
@@ -146,7 +149,7 @@ class EmbedDocuments:
 
         '''
 
-        vertexai.init(project=self.project_id, location=self.location)
+        # vertexai.init(project=self.project_id, location=self.location)
 
         # self.embeddings = VertexAIEmbeddings(model_name=self.embedding_model,
         #                                      batch_size=self.embedding_num_batch)
@@ -164,6 +167,7 @@ class EmbedDocuments:
         '''
 
         gct.upload_directory_to_gcs(local_directory=self.embeddings_path,
+                                    gcs_project_id=self.project_id,
                                     gcs_bucket_name=self.gcs_bucket_name,
                                     gcs_directory=self.gcs_folder)
 

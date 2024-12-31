@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: chroma-embeds
+  name: chroma-embeds-vai
   labels:
     cloud.googleapis.com/location: us-central1
   annotations:
@@ -50,7 +50,7 @@ spec:
           driver: gcsfuse.run.googleapis.com
           readOnly: false
           volumeAttributes:
-            bucketName: ccc-chromadb
+            bucketName: ccc-chromadb-vai
   traffic:
   - percent: 100
     latestRevision: true
