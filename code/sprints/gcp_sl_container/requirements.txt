@@ -1,6 +1,7 @@
 
 altair
 pandas
+python-dotenv
 
 streamlit
 
@@ -10,3 +11,15 @@ langchain_chroma
 langchain_ollama
 langchain_openai
 langchain-google-community
+langchain-google-vertexai
+vertexai
+
+google-cloud-storage
+google.auth
+
+
+
+
+
+
+
