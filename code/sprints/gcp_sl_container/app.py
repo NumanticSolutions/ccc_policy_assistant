@@ -21,9 +21,63 @@ import chromadb
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 
-sys.path.insert(0, "../../utils")
-import gcp_tools as gct
+def upload_directory_to_gcs(local_directory, gcs_project_id,
+                            gcs_bucket_name, gcs_directory):
+    '''
+    Function to upload a directory to Google Cloud Storage
 
+    :param local_directory:
+    :param bucket_name:
+    :param gcs_directory:
+
+    :return:
+    '''
+
+    # Initialize GCS client
+    storage_client = storage.Client(project=gcs_project_id)
+    bucket = storage_client.bucket(bucket_name=gcs_bucket_name)
+
+    for root, _, files in os.walk(local_directory):
+        for file_name in files:
+            local_file_path = os.path.join(root, file_name)
+            relative_path = os.path.relpath(local_file_path, local_directory)
+
+            # Check if files should be stored in subdirectory of directly in bucket
+            if gcs_directory == "":
+                blob = bucket.blob(os.path.join(relative_path))
+            else:
+                blob = bucket.blob(os.path.join(gcs_directory, relative_path))
+
+            # Upload
+            blob.upload_from_filename(local_file_path)
+            print(f"Uploaded {local_file_path} to gs://{gcs_bucket_name}/{gcs_directory}{relative_path}")
+
+
+def download_directory_from_gcs(gcs_project_id, gcs_bucket_name,
+                                gcs_directory, local_directory):
+    '''
+    Function to download a folder in Google Cloud Storage bucket to a local directory
+
+    :param local_directory:
+    :param bucket_name:
+    :param gcs_directory:
+
+    :return:
+    '''
+
+    # Initialize GCS client
+    storage_client = storage.Client(project=gcs_project_id)
+    bucket = storage_client.bucket(bucket_name=gcs_bucket_name)
+
+    blobs = bucket.list_blobs(prefix=gcs_directory)
+
+    for blob in blobs:
+        if not blob.name.endswith("/"):  # Avoid directory blobs
+            relative_path = os.path.relpath(blob.name, gcs_directory)
+            local_file_path = os.path.join(local_directory, relative_path)
+            os.makedirs(os.path.dirname(local_file_path), exist_ok=True)
+            blob.download_to_filename(local_file_path)
+            print(f"Downloaded {blob.name} to {local_file_path}")
 
 class BotCCCGlobals:
 
@@ -110,10 +164,10 @@ def setup_vectorstore():
     '''
 
     # Download files from GCP
-    gct.download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
-                                    gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
-                                    gcs_directory="",
-                                    local_directory=bot_params.embeddings_local_path)
+    download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
+                                gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
+                                gcs_directory="",
+                                local_directory=bot_params.embeddings_local_path)
 
     # Load embeddings and persisted data
     embeddings = VertexAIEmbeddings(model_name=bot_params.embedding_model)
@@ -215,10 +269,10 @@ with st.sidebar:
             json.dump(messages, file)
 
         # Copy to GCS
-        gct.upload_directory_to_gcs(local_directory=bot_params.transcript_path,
-                                    gcs_project_id=bot_params.gcp_project_id,
-                                    gcs_bucket_name=bot_params.transcript_gcs_bucket,
-                                    gcs_directory=bot_params.transcript_gcs_directory)
+        upload_directory_to_gcs(local_directory=bot_params.transcript_path,
+                                gcs_project_id=bot_params.gcp_project_id,
+                                gcs_bucket_name=bot_params.transcript_gcs_bucket,
+                                gcs_directory=bot_params.transcript_gcs_directory)
 
 ########## Handle conversations in Streamlit
 
