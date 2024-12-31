@@ -21,6 +21,8 @@ import chromadb
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 
+from google.cloud import storage
+
 def upload_directory_to_gcs(local_directory, gcs_project_id,
                             gcs_bucket_name, gcs_directory):
     '''
