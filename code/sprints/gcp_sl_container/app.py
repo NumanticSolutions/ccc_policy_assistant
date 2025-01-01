@@ -166,6 +166,8 @@ def setup_vectorstore():
     '''
 
     # Download files from GCP
+    #############################################################
+    st.text("starting embed download")
     download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
                                 gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
                                 gcs_directory="",
@@ -177,6 +179,9 @@ def setup_vectorstore():
     # Load Chroma data from local persisted directory
     db = Chroma(persist_directory=bot_params.embeddings_local_path,
                 embedding_function=embeddings)
+
+    #############################################################
+    st.text("finished embedding download")
 
     return db
 
@@ -289,7 +294,13 @@ if "chat_history" not in st.session_state:
 st.text("chat history session check complete")
 
 if "vectorstore" not in st.session_state:
+    #############################################################
+    st.text("setting up vectorstore")
+
     st.session_state.vectorstore = setup_vectorstore()
+
+    #############################################################
+    st.text("finished vectorstore setup")
 
 #############################################################
 st.text("vectorstore session check complete")
