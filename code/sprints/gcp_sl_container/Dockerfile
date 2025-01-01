@@ -1,10 +1,17 @@
-FROM python:3.9-slim
+# Use the official Streamlit image
+FROM python:3.9
 
+# Set the working directory
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# Copy the requirements file
+COPY requirements.txt ./requirements.txt
 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the app code
 COPY . .
 
-CMD ["streamlit", "run", "app.py", "--server.enableCORS", "false", "--browser.serverAddress", "0.0.0.0", "--browser.gatherUsageStats", "false", "--server.port", "8080"]
+# Run the Streamlit app
+CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
