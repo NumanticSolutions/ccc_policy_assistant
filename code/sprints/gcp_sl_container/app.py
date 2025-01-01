@@ -166,8 +166,6 @@ def setup_vectorstore():
     '''
 
     # Download files from GCP
-    #############################################################
-    st.text("starting embed download")
     download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
                                 gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
                                 gcs_directory="",
@@ -180,8 +178,6 @@ def setup_vectorstore():
     db = Chroma(persist_directory=bot_params.embeddings_local_path,
                 embedding_function=embeddings)
 
-    #############################################################
-    st.text("finished embedding download")
 
     return db
 
@@ -282,48 +278,23 @@ with st.sidebar:
                                 gcs_directory=bot_params.transcript_gcs_directory)
 
 ########## Handle conversations in Streamlit
-
-#############################################################
-st.text("starting session checks")
-
 # Build session components if needed
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-#############################################################
-st.text("chat history session check complete")
-
 if "vectorstore" not in st.session_state:
-    #############################################################
-    st.text("setting up vectorstore")
-
     st.session_state.vectorstore = setup_vectorstore()
-
-    #############################################################
-    st.text("finished vectorstore setup")
-
-#############################################################
-st.text("vectorstore session check complete")
 
 if "conversational_chain" not in st.session_state:
     st.session_state.conversational_chain = chat_chain(st.session_state.vectorstore)
 
-#############################################################
-st.text("conversational chain session check complete")
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-#############################################################
-st.text("messages session check complete")
 
 # displays the chat history when app is rerun
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-
-#############################################################
-st.text("populating chat input")
 
 # Input box for user's query
 user_input = st.chat_input("Your message")
