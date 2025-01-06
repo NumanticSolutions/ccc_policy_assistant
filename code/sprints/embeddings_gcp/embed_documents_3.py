@@ -84,7 +84,7 @@ class EmbedDocuments:
         # Text column
         self.text_col = "ptag_text"
         self.metadata_cols = ["url"]
-        self.chunk_size = 1000
+        self.chunk_size = 250
         self.chunk_overlap = 20
 
         # Folder on GCS
