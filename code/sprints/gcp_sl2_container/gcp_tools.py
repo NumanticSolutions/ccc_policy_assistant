@@ -1,4 +1,5 @@
 # GCP
+# Import files
 from google.cloud import secretmanager
 from google.cloud import storage
 import google
@@ -6,6 +7,8 @@ import google.oauth2.credentials
 from google.auth import compute_engine
 import google.auth.transport.requests
 import os
+
+
 
 def get_gcpsecrets(project_id,
                    secret_id,
