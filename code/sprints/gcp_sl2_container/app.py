@@ -10,11 +10,12 @@ import sys, os
 import re
 import datetime
 
-sys.path.insert(0, "../../utils")
+# sys.path.insert(0, "../../utils")
 # import gcp_tools as gct
 # import authentication as auth
 
-import rag_bot_1 as rb1
+# import rag_bot_1 as rb1
+from rag_bot_1 import CCCPolicyAssistant
 
 ########## Set up Streamlit
 ### Set up header
@@ -55,7 +56,8 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 if "bot" not in st.session_state:
-    st.session_state["bot"] = rb1.CCCPolicyAssistant()
+    # st.session_state["bot"] = rb1.CCCPolicyAssistant()
+    st.session_state["bot"] = CCCPolicyAssistant()
     # st.write(st.session_state["bot"])
 
 if "messages" not in st.session_state:
