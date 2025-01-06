@@ -11,9 +11,8 @@ from langchain_google_vertexai import VertexAI, VertexAIEmbeddings, ChatVertexAI
 import vertexai
 from langchain_chroma import Chroma
 
-sys.path.insert(0, "../../utils")
-import gcp_tools as gct
-import authentication as auth
+from gcp_tools import download_directory_from_gcs
+from authentication import ApiAuthentication
 
 
 # Define state for application
@@ -89,7 +88,7 @@ class CCCPolicyAssistant:
         self.doc_search_retrieval_k = 4
 
         ########## Set up Chatbot
-        creds = auth.ApiAuthentication()
+        creds = ApiAuthentication()
 
         # LangSmith
         os.environ["LANGCHAIN_TRACING_V2"] = "true"
@@ -123,10 +122,10 @@ class CCCPolicyAssistant:
         '''
 
         # Download files from GCP
-        gct.download_directory_from_gcs(gcs_project_id=self.gcp_project_id,
-                                        gcs_bucket_name=self.gcs_embeddings_bucket_name,
-                                        gcs_directory=self.gcs_embeddings_directory,
-                                        local_directory=self.embeddings_local_path)
+        download_directory_from_gcs(gcs_project_id=self.gcp_project_id,
+                                    gcs_bucket_name=self.gcs_embeddings_bucket_name,
+                                    gcs_directory=self.gcs_embeddings_directory,
+                                    local_directory=self.embeddings_local_path)
 
         # Load embeddings and persisted data
         embeddings = VertexAIEmbeddings(model_name=self.embedding_model)
