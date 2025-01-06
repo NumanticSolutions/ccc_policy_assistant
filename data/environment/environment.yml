@@ -47,6 +47,7 @@ dependencies:
       - langchain_openai
       - langchain-google-community
       - langchain-google-vertexai
+      - langgraph
       - vertexai
 
       - pyppeteer

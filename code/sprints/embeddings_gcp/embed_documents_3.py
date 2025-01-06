@@ -4,6 +4,8 @@ import os, sys
 
 import pandas as pd
 
+from uuid import uuid4
+
 
 import langchain
 from langchain.chains import create_retrieval_chain
@@ -15,10 +17,14 @@ from langchain.vectorstores.chroma import Chroma
 from langchain_google_vertexai import VertexAI, VertexAIEmbeddings
 import vertexai
 
+import chromadb
+
 from langchain_community.document_loaders import DataFrameLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # sys.path.insert(0, "../../embedding")
-# from chunk_text import ChunkText
+import chunk_text_3 as ct
+import url_exclusion_list as uel
 
 sys.path.insert(0, "../../utils")
 import gcp_tools as gct
@@ -77,6 +83,10 @@ class EmbedDocuments:
 
         # Text column
         self.text_col = "ptag_text"
+        self.metadata_cols = ["url"]
+        self.chunk_size = 1000
+        self.chunk_overlap = 20
+
         # Folder on GCS
         self.gcs_folder = ""
 
@@ -85,6 +95,12 @@ class EmbedDocuments:
 
         # Initialize VertexAI
         vertexai.init(project=self.project_id, location=self.location)
+
+        # Set up embeddings model
+        self.embeddings = VertexAIEmbeddings(model_name=self.embedding_model)
+
+        self.client = chromadb.PersistentClient(path=self.embeddings_path)
+
 
 
     def get_input_filenames(self):
@@ -123,6 +139,12 @@ class EmbedDocuments:
         self.input_df = self.input_df.drop_duplicates(subset=[self.text_col])
         self.input_df = self.input_df.reset_index(drop=True)
 
+        # Drop everything on the exclusion list
+        mask = self.input_df["url"].isin(uel.exclude_urls)
+        self.input_df = self.input_df[~mask]
+        self.input_df = self.input_df.reset_index(drop=True)
+
+
         #####
         # We might want to reduce some redundant text by checking similarity of input texts
         # Need to figure out how to handle additional documents - do we add to the same collection?
@@ -134,31 +156,65 @@ class EmbedDocuments:
         :return:
         '''
 
-        self.split_docs = []
 
-        # Create a loader and load documents
-        loader = DataFrameLoader(self.input_df, page_content_column=self.text_col)
+        # chunker = ct.ChunkText()
+        # self.chunks = chunker.chunk_dataframe(df=self.input_df)
 
-        text_splitter = CharacterTextSplitter(chunk_size=8192, chunk_overlap=128)
-        self.split_docs.extend(text_splitter.split_documents(loader.load()))
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=self.chunk_size,
+            chunk_overlap=self.chunk_overlap,
+            length_function=len,
+            is_separator_regex=False,
+        )
+
+        # Split all texts
+        self.docs = []
+
+        for idx in self.input_df.index:
+            texts = text_splitter.create_documents([self.input_df.loc[idx, self.text_col]])
+
+            # Add metadata
+            for text in texts:
+                for col in self.metadata_cols:
+                    text.metadata = {col: self.input_df.loc[idx, col]}
+
+            self.docs.extend(texts)
 
 
-    def embed(self):
+        # Add IDs
+        self.uuids = [str(uuid4()) for _ in range(len(self.docs))]
+
+        for id, doc in zip(self.uuids, self.docs):
+            doc.id = id
+
+    def embed(self, meta_key="url",is_verbose=False):
         '''
         Create the embeddings
 
         '''
 
-        # vertexai.init(project=self.project_id, location=self.location)
+        # Check if collection name exists -
+        #### Need to add more functionality on how to handle this case
+        for c in self.client.list_collections():
+            if c.name == self.collection_name:
+                print("collection {} already exists; It will be overwritten".format(c.name))
+                self.client.delete_collection(name=c.name)
 
-        # self.embeddings = VertexAIEmbeddings(model_name=self.embedding_model,
-        #                                      batch_size=self.embedding_num_batch)
+        # Create a new collection
+        self.collection = self.client.create_collection(name=self.collection_name)
 
-        self.embeddings = VertexAIEmbeddings(model_name=self.embedding_model)
+        # Create an embeddings model
+        self.embeddings_model_obj = VertexAIEmbeddings(model=self.embedding_model)
 
-        db = Chroma.from_documents(
-            documents=self.split_docs, embedding=self.embeddings,
-            persist_directory=self.embeddings_path, collection_name=self.collection_name)
+        # Create a vector store
+        vector_store = Chroma(
+            client=self.client,
+            collection_name=self.collection_name,
+            embedding_function=self.embeddings_model_obj,
+        )
+
+        # Add documents to the vector sore
+        vector_store.add_documents(documents=self.docs, ids=self.uuids)
 
     def copy_embeddings_to_gcs(self):
         '''
