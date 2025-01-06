@@ -11,7 +11,7 @@ from langchain_google_vertexai import VertexAI, VertexAIEmbeddings, ChatVertexAI
 import vertexai
 from langchain_chroma import Chroma
 
-from gcp_tools import download_directory_from_gcs
+from gcp_tools_2 import download_directory_from_gcs
 from authentication import ApiAuthentication
 
 
