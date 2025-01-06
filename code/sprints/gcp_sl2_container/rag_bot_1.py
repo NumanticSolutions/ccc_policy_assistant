@@ -134,6 +134,7 @@ class CCCPolicyAssistant:
         db = Chroma(persist_directory=self.embeddings_local_path,
                     collection_name=self.chroma_collection_name,
                     embedding_function=embeddings)
+
         return db
 
     # Define application steps
