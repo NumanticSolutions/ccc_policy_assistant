@@ -16,7 +16,9 @@ langgraph
 vertexai
 
 google-cloud-storage
-google.auth
+google-auth
+google-cloud
+google
 
 
 
