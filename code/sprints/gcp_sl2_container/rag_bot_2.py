@@ -15,9 +15,8 @@ import vertexai
 from langchain.tools.base import StructuredTool
 from langgraph.checkpoint.memory import MemorySaver
 
-sys.path.insert(0, "../../utils")
-import authentication as auth
-import gcp_tools as gct
+from gcp_tools_2 import download_directory_from_gcs
+from authentication import ApiAuthentication
 
 # Define state for application
 class State(TypedDict):
@@ -124,10 +123,10 @@ class CCCPolicyAssistant:
         '''
 
         # Download files from GCP
-        # gct.download_directory_from_gcs(gcs_project_id=bot_params.gcp_project_id,
-        #                                 gcs_bucket_name=bot_params.gcs_embeddings_bucket_name,
-        #                                 gcs_directory=bot_params.gcs_embeddings_directory,
-        #                                 local_directory=bot_params.embeddings_local_path)
+        download_directory_from_gcs(gcs_project_id=self.gcp_project_id,
+                                    gcs_bucket_name=self.gcs_embeddings_bucket_name,
+                                    gcs_directory=self.gcs_embeddings_directory,
+                                    local_directory=self.embeddings_local_path)
 
         # Load embeddings and persisted data
         embeddings = VertexAIEmbeddings(model_name=self.embedding_model)
@@ -152,7 +151,6 @@ class CCCPolicyAssistant:
         )
 
         return serialized, self.retrieved_docs
-
 
     # Step 1: Generate an AIMessage that may include a tool-call to be sent.
     def query_or_respond(self, state: MessagesState):
@@ -246,47 +244,11 @@ class CCCPolicyAssistant:
                 self.ai_response = step["messages"][-1].content
 
             try:
-
                 self.source_urls = list(set([doc.metadata["url"] for doc in self.retrieved_docs]))
 
             except:
                 self.source_urls = []
 
-                #
-                # #####= Find the source URLs
-                # pat = r"{'url': '.+}"
-                # for msg in step["messages"][-2]:
-                #     if msg[0] == "content":
-                #         self.source_urls = re.findall(pat, msg[1])
-                #
-                #         # Remove unwanted characters
-                #         self.source_urls = [s.replace("{'url': '","").replace("'}","") for s in source_urls]
-                #
-                #         # Remove duplicates
-                #         self.source_urls = set(self.source_urls)
 
-                ############ Get the AI response
-            #     for msg in step["messages"][-1]:
-            #         # if msg[0] == "content":
-            #         #     self.ai_response = msg[1]
-            #         #
-            #         if msg.type == "ai":
-            #             self.ai_response = msg.content
-            #
-            #     self.ai_reponses = [msg.content for msg in self.retrieved_docs]
-            #
-            # except:
-            #     self.ai_response= ""
-        #
-        # res_msg = ("{} \nThese resources might be helpful:\n {}")
-        # print("\nSummary ================")
-        # print(res_msg.format(ai_response,  source_urls))
 
-        # for msg in chatbot.conversation_messages:
-        #     if msg.type == "human":
-        #         print("human message")
-        #         print(msg.content)
-        #     elif msg.type == "ai":
-        #         print("AI message")
-        #         print(msg.content)
 
