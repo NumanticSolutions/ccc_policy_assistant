@@ -16,7 +16,7 @@ from langchain.tools.base import StructuredTool
 from langgraph.checkpoint.memory import MemorySaver
 
 from gcp_tools_2 import download_directory_from_gcs
-from authentication import ApiAuthentication
+# from authentication import ApiAuthentication
 
 # Define state for application
 class State(TypedDict):
