@@ -90,7 +90,7 @@ class CCCPolicyAssistant:
 
         self.doc_search_retrieval_k = 4
 
-        creds = auth.ApiAuthentication()
+        # creds = auth.ApiAuthentication()
 
         # LangSmith
         os.environ["LANGCHAIN_TRACING_V2"] = "true"
