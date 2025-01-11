@@ -10,6 +10,9 @@ from langchain import hub
 from langchain_google_vertexai import VertexAI, VertexAIEmbeddings, ChatVertexAI
 import vertexai
 from langchain_chroma import Chroma
+from langchain_core.tools import tool
+
+
 
 sys.path.insert(0, "../../utils")
 import authentication as auth
@@ -139,8 +142,10 @@ class CCCPolicyAssistant:
 
     # Define application steps
     def retrieve(self, state: State):
+        """Retrieve information related to a query."""
         retrieved_docs = self.vector_store.similarity_search(state["question"])
         return {"context": retrieved_docs}
+
 
     def generate(self, state: State):
         docs_content = "\n\n".join(doc.page_content for doc in state["context"])

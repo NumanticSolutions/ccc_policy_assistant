@@ -16,6 +16,7 @@ import streamlit as st
 
 # import rag_bot_1 as rb1
 from rag_bot_1 import CCCPolicyAssistant
+from rag_bot_2 import CCCPolicyAssistant
 
 ########## Set up Streamlit
 ### Set up header
@@ -80,15 +81,18 @@ if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
 
     # Get the AI assistant's response
-    response = st.session_state["bot"].graph.invoke({"question": user_input})
+    # response = st.session_state["bot"].graph.invoke({"question": user_input})
+    response = st.session_state["bot"].show_conversation(input_message=user_input, verbose=False)
     # response = bot.graph.invoke({"question": user_input})
 
     # Extract metadata links
-    context_urls = []
-    for doc in response["context"]:
-        if "url" in doc.metadata.keys():
-            context_urls.append(doc.metadata["url"])
-    context_urls = list(set(context_urls))
+    # context_urls = []
+    # for doc in response["context"]:
+    #     if "url" in doc.metadata.keys():
+    #         context_urls.append(doc.metadata["url"])
+    # context_urls = list(set(context_urls))
+
+    context_urls = st.session_state["bot"].source_urls
 
     # Converted URLs to a Markdown list
     s = "\n"
@@ -96,7 +100,8 @@ if user_input:
         s += "- " + i + "\n"
 
     # Extract the AI response and add URls for context
-    ai_response = "{} These references might be useful: {}".format(response["answer"], s)
+    # ai_response = "{} These references might be useful: {}".format(response["answer"], s)
+    ai_response = "{} These references might be useful: {}".format(st.session_state["bot"].ai_response, s)
 
     # Store AI's response in the chat history
     st.session_state.messages.append({"role": "assistant", "content": ai_response})
